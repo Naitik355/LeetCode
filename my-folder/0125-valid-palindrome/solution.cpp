@@ -1,18 +1,17 @@
 class Solution {
 public:
     bool isPalindrome(string s) {
-        string result="";
-        string revresult="";
-        for(char c:s){
-            if(!isspace(c)&&!ispunct(c)) result+=tolower(c);
-        }
-        revresult=result;
-        reverse(revresult.begin(),revresult.end());
-        cout<< revresult;
-        if(result==revresult){
-            return true;
-        }
-         return false;
-     }
-
+        int left=0;
+        int right=s.length()-1;
+        while(left<right){
+            if (!isalnum(s[left])) left++;
+            else if (!isalnum(s[right])) right--;
+            else{
+                if(tolower(s[left])!=tolower(s[right])) return false;
+                left++;
+                right--;
+            }
+        }   
+        return true;
+    }
 };
