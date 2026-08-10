@@ -7,7 +7,7 @@ public:
         while(lp<rp){
             int width=rp-lp;
             int minHeight=min(height[lp],height[rp]);
-            int currWater=width*minHeight;
+            int currWater=minHeight*width;
             maxWater=max(maxWater,currWater);
             if(height[lp]>height[rp]){
                 rp--;
@@ -15,6 +15,7 @@ public:
             else{
                 lp++;
             }
+
         }
         return maxWater;
     }
