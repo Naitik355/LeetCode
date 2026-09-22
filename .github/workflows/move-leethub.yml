@@ -23,17 +23,25 @@ jobs:
         run: |
           mkdir -p my-folder
 
-          echo "Folders in repository:"
+          echo "Root folders before moving:"
           find . -maxdepth 1 -type d -print
 
-          echo "Moving LeetCode folders..."
+          echo "Searching for LeetCode folders..."
 
-          find . -maxdepth 1 -type d -regex './[0-9]+-.*' -print -exec mv {} my-folder/ \;
+          shopt -s nullglob
 
-      - name: Show Changes
-        run: |
-          echo "Git status:"
-          git status
+          for dir in [0-9]*-*; do
+            if [ -d "$dir" ]; then
+              echo "Moving: $dir"
+              mv "$dir" my-folder/
+            fi
+          done
+
+          echo "Root folders after moving:"
+          find . -maxdepth 1 -type d -print
+
+          echo "Folders inside my-folder:"
+          find my-folder -maxdepth 1 -type d -print
 
       - name: Commit and Push
         run: |
